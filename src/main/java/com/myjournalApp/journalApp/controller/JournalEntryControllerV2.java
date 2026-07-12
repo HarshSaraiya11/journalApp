@@ -1,6 +1,5 @@
 package com.myjournalApp.journalApp.controller;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
@@ -46,8 +45,6 @@ public class JournalEntryControllerV2 {
         }
         String userName = authentication.getName();
         User user = userService.findByUserName(userName);
-        // List<JournalEntry> all =  user.getJournalEntries()
-        // .stream().sorted(Comparator.comparing(JournalEntry::getDate).reversed()).toList();
         List<String> all =  user.getJournalEntries()
         .stream().map(entry -> entry.getTitle()).toList();
         if (all!= null && !all.isEmpty()) {
@@ -104,7 +101,7 @@ public class JournalEntryControllerV2 {
         }
     }
 
-    @DeleteMapping("id/{myId}")
+    @DeleteMapping("delete/id/{myId}")
     public ResponseEntity<?> deleteEntryById(@PathVariable Long myId, Authentication authentication) { 
         
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -115,7 +112,7 @@ public class JournalEntryControllerV2 {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("id/{Id}")
+    @PutMapping("update/id/{Id}")
     public ResponseEntity<?> updateEntry(
         @PathVariable Long Id,
         @RequestBody JournalEntry myEntry,

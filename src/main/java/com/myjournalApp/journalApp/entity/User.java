@@ -34,6 +34,10 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    @Column(name="EMAIL", unique = true)
+    private String email;
+    
 
     @Column(name="USERNAME", unique = true)
     private String userName;

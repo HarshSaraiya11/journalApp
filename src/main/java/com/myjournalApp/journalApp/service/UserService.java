@@ -32,11 +32,9 @@ public class UserService implements UserDetailsService{
             throws UsernameNotFoundException {
 
         User user = userRepository.findByUserName(username);
-
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-
         return new org.springframework.security.core.userdetails.User(
                 user.getUserName(),
                 user.getPassword(),
@@ -91,6 +89,7 @@ public class UserService implements UserDetailsService{
         throw new RuntimeException("User not found");
     }
     existing.setUserName(updatedUser.getUserName());
+    existing.setEmail(updatedUser.getEmail());
     if (updatedUser.getPassword() != null &&
         !updatedUser.getPassword().isBlank()) {
 
